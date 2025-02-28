@@ -1,0 +1,40 @@
+name: Publish npm package
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  build_package:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout the repo
+        uses: action/checkout@v4
+      - name: Use nodejs
+        uses: actions/setup-node@4
+        with:
+          node-version: '20'
+      - name: Install Dependencies
+        run: npm install
+      - name: Build package
+        run: npm run build
+      - name: package the app
+        run: npm package
+      - name: Upload the package
+        uses: action/upload-artifact@v2
+        with:
+          name: package
+          path: "*.tgz"
+  
+  publish-job:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+    needs: [build_package]
+    steps:
+      - name: Download pakcage
+        uses: action/download-artifact@v2
+        with:
+          name: package
+
