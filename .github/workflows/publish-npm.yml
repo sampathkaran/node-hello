@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout the repo
-        uses: action/checkout@v4
+        uses: actions/checkout@v4
       - name: Use nodejs
         uses: actions/setup-node@4
         with:
@@ -19,7 +19,7 @@ jobs:
       - name: package the app
         run: npm package
       - name: Upload the package
-        uses: action/upload-artifact@v2
+        uses: actions/upload-artifact@v2
         with:
           name: package
           path: "*.tgz"
@@ -32,7 +32,7 @@ jobs:
     needs: [build_package]
     steps:
       - name: Download pakcage
-        uses: action/download-artifact@v2
+        uses: actions/download-artifact@v2
         with:
           name: package
 
