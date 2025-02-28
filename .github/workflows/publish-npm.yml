@@ -19,7 +19,7 @@ jobs:
       - name: package the app
         run: npm package
       - name: Upload the package
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: package
           path: "*.tgz"
@@ -32,7 +32,7 @@ jobs:
     needs: [build_package]
     steps:
       - name: Download pakcage
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: package
 
